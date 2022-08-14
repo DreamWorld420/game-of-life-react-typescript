@@ -22,7 +22,18 @@ const GameCell: React.FC<IProps> = ({
 			}}
 			onClick={
 				!isStarted
-					? () => onCellClickHandler(cell.i, cell.j)
+					? () => {
+							onCellClickHandler(cell.i, cell.j);
+					  }
+					: undefined
+			}
+			onMouseEnter={
+				!isStarted
+					? (e) => {
+							if (e.button === 0 && e.buttons > 0) {
+								onCellClickHandler(cell.i, cell.j);
+							}
+					  }
 					: undefined
 			}
 		/>
