@@ -5,7 +5,7 @@ import { useInterval } from "react-use";
 
 import GameGrid from "./GameGrid";
 
-const createGrid = (gridSize: number) => {
+const createGrid: (gridSize: number) => GameGrid = (gridSize: number) => {
 	return Array(gridSize)
 		.fill(null)
 		.map((row, i) => {
@@ -18,7 +18,6 @@ const createGrid = (gridSize: number) => {
 						i,
 						j,
 						aliveNeighborsCount: 0,
-						shouldBeAlive: false,
 					};
 				});
 		});
@@ -28,9 +27,7 @@ const App: React.FC = () => {
 	const [gridSize, setGridSize] = useState<number>(50);
 	const [isStarted, setIsStarted] = useState<boolean>(false);
 	const [intervalDelay, setIntervalDelay] = useState<number>(50);
-	const [gameGrid, setGameGrid] = useState<GameGrid>(() =>
-		createGrid(gridSize)
-	);
+	const [gameGrid, setGameGrid] = useState<GameGrid>(createGrid(gridSize));
 
 	useInterval(
 		() => {
@@ -113,6 +110,14 @@ const App: React.FC = () => {
 			/>
 			<button onClick={() => setIsStarted((prev) => !prev)}>
 				{`${isStarted ? "Pause" : "Start"} The Game`}
+			</button>
+			<button
+				onClick={() => {
+					setIsStarted(false);
+					setGameGrid(createGrid(gridSize));
+				}}
+			>
+				Reset The Game
 			</button>
 		</div>
 	);
