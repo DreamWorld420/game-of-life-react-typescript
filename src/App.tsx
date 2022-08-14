@@ -23,8 +23,19 @@ const createGrid: (gridSize: number) => GameGrid = (gridSize: number) => {
 		});
 };
 
+const mooreNeighborhood: [number, number][] = [
+	[1, 0], // N
+	[-1, 0], // S
+	[0, 1], // E
+	[0, -1], // W
+	[1, 1], // NE
+	[1, -1], // NW
+	[-1, -1], // SW
+	[-1, 1], // SE
+];
+
 const App: React.FC = () => {
-	const [gridSize, setGridSize] = useState<number>(50);
+	const [gridSize, setGridSize] = useState<number>(30);
 	const [isStarted, setIsStarted] = useState<boolean>(false);
 	const [intervalDelay, setIntervalDelay] = useState<number>(50);
 	const [gameGrid, setGameGrid] = useState<GameGrid>(createGrid(gridSize));
@@ -39,28 +50,24 @@ const App: React.FC = () => {
 						row.forEach((cell, j) => {
 							cell.aliveNeighborsCount = 0;
 
-							cell.aliveNeighborsCount += [
-								i - 1 >= 0 && draft[i - 1][j].isAlive,
-								i + 1 <= gridSize - 1 &&
-									draft[i + 1][j].isAlive,
-								j - 1 >= 0 && draft[i][j - 1].isAlive,
-								j + 1 <= gridSize - 1 &&
-									draft[i][j + 1].isAlive,
-								i - 1 >= 0 &&
-									j - 1 >= 0 &&
-									draft[i - 1][j - 1].isAlive,
-								i - 1 >= 0 &&
-									j + 1 <= gridSize - 1 &&
-									draft[i - 1][j + 1].isAlive,
-								i + 1 <= gridSize - 1 &&
-									j - 1 >= 0 &&
-									draft[i + 1][j - 1].isAlive,
-								i + 1 <= gridSize - 1 &&
-									j + 1 <= gridSize - 1 &&
-									draft[i + 1][j + 1].isAlive,
-							].filter((value) => value).length;
+							mooreNeighborhood.forEach(([y, x]) => {
+								const neighborY = i + y;
+								const neighborX = j + x;
 
-							// Alive Checker
+								// Boundary checking
+								if (
+									neighborY <= gridSize - 1 &&
+									neighborY >= 0 &&
+									neighborX <= gridSize - 1 &&
+									neighborX >= 0
+								) {
+									cell.aliveNeighborsCount += Number(
+										draft[neighborY][neighborX].isAlive
+									);
+								}
+							});
+
+							// isAlive logic
 							if (
 								(!cell.isAlive &&
 									cell.aliveNeighborsCount === 3) ||
