@@ -5,28 +5,32 @@ import { useInterval } from "react-use";
 
 import GameGrid from "./GameGrid";
 
+const createGrid = (gridSize: number) => {
+	return Array(gridSize)
+		.fill(null)
+		.map((row, i) => {
+			return Array(gridSize)
+				.fill(null)
+				.map((cell, j) => {
+					return {
+						id: `${i}-${j}`,
+						isAlive: false,
+						i,
+						j,
+						aliveNeighborsCount: 0,
+						shouldBeAlive: false,
+					};
+				});
+		});
+};
+
 const App: React.FC = () => {
 	const [gridSize, setGridSize] = useState<number>(50);
 	const [isStarted, setIsStarted] = useState<boolean>(false);
 	const [intervalDelay, setIntervalDelay] = useState<number>(50);
-	const [gameGrid, setGameGrid] = useState<GameGrid>(() => {
-		return Array(gridSize)
-			.fill(null)
-			.map((row, i) => {
-				return Array(gridSize)
-					.fill(null)
-					.map((cell, j) => {
-						return {
-							id: `${i}-${j}`,
-							isAlive: false,
-							i,
-							j,
-							aliveNeighborsCount: 0,
-							shouldBeAlive: false,
-						};
-					});
-			});
-	});
+	const [gameGrid, setGameGrid] = useState<GameGrid>(() =>
+		createGrid(gridSize)
+	);
 
 	useInterval(
 		() => {
