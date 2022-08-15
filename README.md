@@ -5,5 +5,5 @@
 This project implements the famous [zero-player](https://en.wikipedia.org/wiki/Zero-player_game) game, [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) with technologies such as react, typescript, ChakraUI, Immer and etc.
 
 ## Video
+https://user-images.githubusercontent.com/22224893/184684543-6be2bf7f-e39d-4e5a-8a59-583b5a3cfc93.mp4
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bMEG9AGGoGE" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
