@@ -17,7 +17,7 @@ const GameCell: React.FC<IProps> = ({
 			style={{
 				height: 15,
 				width: 15,
-				border: "1px solid black",
+				outline: "1px solid black",
 				backgroundColor: cell.isAlive ? "black" : "transparent",
 			}}
 			onClick={

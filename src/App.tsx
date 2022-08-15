@@ -2,6 +2,21 @@ import React, { useState } from "react";
 
 import { produce } from "immer";
 import { useInterval } from "react-use";
+import {
+	Box,
+	Center,
+	Button,
+	ButtonGroup,
+	StatGroup,
+	Stat,
+	StatLabel,
+	StatNumber,
+} from "@chakra-ui/react";
+import {
+	PlayArrowRounded,
+	PauseRounded,
+	StopRounded,
+} from "@mui/icons-material";
 
 import GameGrid from "./GameGrid";
 
@@ -37,8 +52,9 @@ const mooreNeighborhood: [number, number][] = [
 const App: React.FC = () => {
 	const [gridSize, setGridSize] = useState<number>(30);
 	const [isStarted, setIsStarted] = useState<boolean>(false);
-	const [intervalDelay, setIntervalDelay] = useState<number>(50);
+	const [intervalDelay, setIntervalDelay] = useState<number>(100);
 	const [gameGrid, setGameGrid] = useState<GameGrid>(createGrid(gridSize));
+	const [generation, setGeneration] = useState<number>(0);
 
 	useInterval(
 		() => {
@@ -95,6 +111,7 @@ const App: React.FC = () => {
 					});
 				})
 			);
+			setGeneration((prev) => ++prev);
 		},
 		isStarted ? intervalDelay : null
 	);
@@ -108,25 +125,58 @@ const App: React.FC = () => {
 	};
 
 	return (
-		<div>
-			<GameGrid
-				grid={gameGrid}
-				size={gridSize}
-				onCellClickHandler={onClickHandler}
-				isStarted={isStarted}
-			/>
-			<button onClick={() => setIsStarted((prev) => !prev)}>
-				{`${isStarted ? "Pause" : "Start"} The Game`}
-			</button>
-			<button
-				onClick={() => {
-					setIsStarted(false);
-					setGameGrid(createGrid(gridSize));
-				}}
-			>
-				Reset The Game
-			</button>
-		</div>
+		<Box
+			backgroundColor="#1a202c"
+			display="flex"
+			flexDirection="column"
+			justifyContent="center"
+			alignItems="center"
+			height="100vh"
+		>
+			<Center>
+				<GameGrid
+					grid={gameGrid}
+					size={gridSize}
+					onCellClickHandler={onClickHandler}
+					isStarted={isStarted}
+				/>
+				<Box
+					position="fixed"
+					top="2"
+					left="3.5"
+					borderWidth={1}
+					padding={3}
+					borderRadius="md"
+					borderColor="purple.300"
+					boxShadow="2xl"
+				>
+					<StatGroup>
+						<Stat>
+							<StatLabel>Generation</StatLabel>
+							<StatNumber>{generation}</StatNumber>
+						</Stat>
+					</StatGroup>
+					<ButtonGroup mt="2" colorScheme="purple" variant="solid">
+						<Button onClick={() => setIsStarted((prev) => !prev)}>
+							{!isStarted ? (
+								<PlayArrowRounded />
+							) : (
+								<PauseRounded />
+							)}
+						</Button>
+						<Button
+							onClick={() => {
+								setIsStarted(false);
+								setGameGrid(createGrid(gridSize));
+								setGeneration(0);
+							}}
+						>
+							<StopRounded />
+						</Button>
+					</ButtonGroup>
+				</Box>
+			</Center>
+		</Box>
 	);
 };
 
