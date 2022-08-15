@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, OrderedList, ListItem } from "@chakra-ui/react";
+import { Box, OrderedList, ListItem, Heading } from "@chakra-ui/react";
 
 const GameInstructions: React.FC = () => {
 	return (
@@ -11,7 +11,8 @@ const GameInstructions: React.FC = () => {
 			boxShadow="2xl"
 			textColor="#1a202c"
 		>
-			<OrderedList fontSize={"sm"} spacing={"2"}>
+			<Heading size={"md"}>Site Instructions</Heading>
+			<OrderedList fontSize={"sm"} spacing={"2"} mt={2}>
 				<ListItem>Click on any cell to make it alive</ListItem>
 				<ListItem>Click on play button to start the game</ListItem>
 				<ListItem>Watch and enjoy 😊</ListItem>
