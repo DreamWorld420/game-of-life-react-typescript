@@ -12,6 +12,7 @@ import ProjectInfo from "./components/ProjectInfo";
 import GameInstructions from "./components/GameInstructions";
 
 import createGrid from "./utils/createGrid";
+import GameRules from "./components/GameRules";
 
 const mooreNeighborhood: [number, number][] = [
 	[1, 0], // N
@@ -143,6 +144,7 @@ const App: React.FC = () => {
 								}}
 							/>
 						</Box>
+						<GameRules />
 						<GameInstructions />
 						<SocialLinks />
 					</Stack>

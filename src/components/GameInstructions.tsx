@@ -11,8 +11,8 @@ const GameInstructions: React.FC = () => {
 			boxShadow="2xl"
 			textColor="#1a202c"
 		>
-			<Heading size={"md"}>Site Instructions</Heading>
-			<OrderedList fontSize={"sm"} spacing={"2"} mt={2}>
+			<Heading size={"sm"}>Site Instructions</Heading>
+			<OrderedList fontSize={"xs"} spacing={"2"} mt={2}>
 				<ListItem>Click on any cell to make it alive</ListItem>
 				<ListItem>Click on play button to start the game</ListItem>
 				<ListItem>Watch and enjoy 😊</ListItem>
