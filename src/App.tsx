@@ -2,49 +2,15 @@ import React, { useState } from "react";
 
 import { produce } from "immer";
 import { useInterval } from "react-use";
-import {
-	Box,
-	Center,
-	Button,
-	ButtonGroup,
-	StatGroup,
-	Stat,
-	StatLabel,
-	StatNumber,
-	Stack,
-	Heading,
-	HStack,
-	Text,
-	Badge,
-	Link,
-} from "@chakra-ui/react";
-import {
-	PlayArrowRounded,
-	PauseRounded,
-	StopRounded,
-	GitHub,
-	LinkedIn,
-} from "@mui/icons-material";
+import { Box, Center, Stack } from "@chakra-ui/react";
 
 import GameGrid from "./components/GameGrid";
+import SocialLinks from "./components/SocialLinks";
+import GameStat from "./components/GameStat";
+import GameControls from "./components/GameControls";
+import ProjectInfo from "./components/ProjectInfo";
 
-const createGrid: (gridSize: number) => GameGrid = (gridSize: number) => {
-	return Array(gridSize)
-		.fill(null)
-		.map((row, i) => {
-			return Array(gridSize)
-				.fill(null)
-				.map((cell, j) => {
-					return {
-						id: `${i}-${j}`,
-						isAlive: false,
-						i,
-						j,
-						aliveNeighborsCount: 0,
-					};
-				});
-		});
-};
+import createGrid from "./utils/createGrid";
 
 const mooreNeighborhood: [number, number][] = [
 	[1, 0], // N
@@ -68,6 +34,7 @@ const App: React.FC = () => {
 		() => {
 			setGameGrid(
 				produce((draft) => {
+					// change task queue
 					const taskQueue: Task[] = [];
 
 					draft.forEach((row, i) => {
@@ -150,50 +117,7 @@ const App: React.FC = () => {
 				/>
 				<Box position="fixed" top="4" left="4">
 					<Stack w="64">
-						<Box
-							borderWidth={1}
-							padding={3}
-							borderRadius="md"
-							bgColor="purple.300"
-							boxShadow="2xl"
-							w="100%"
-						>
-							<Stack textColor="#1a202c">
-								<Heading as="h1" size="sm">
-									Conway's Game of Life
-								</Heading>
-								<Text fontSize="sm">
-									Made by{" "}
-									<Link
-										href="https://github.com/DreamWorld420"
-										isExternal
-									>
-										<strong>DreamWorld420</strong>
-									</Link>
-								</Text>
-								<HStack>
-									<Text fontSize="sm">with</Text>
-									<Badge bgColor="#3178c6">
-										<Link
-											href="https://www.typescriptlang.org/"
-											isExternal
-										>
-											Typescript
-										</Link>
-									</Badge>
-									<Text fontSize="xs">+</Text>
-									<Badge bgColor="#282c34">
-										<Link
-											href="https://reactjs.org/"
-											isExternal
-											textColor="#61dafb"
-										>
-											React
-										</Link>
-									</Badge>
-								</HStack>
-							</Stack>
-						</Box>
+						<ProjectInfo />
 						<Box
 							borderWidth={1}
 							padding={3}
@@ -205,69 +129,20 @@ const App: React.FC = () => {
 							flexDirection="column"
 							justifyContent="space-between"
 						>
-							<StatGroup>
-								<Stat>
-									<StatLabel>Generation</StatLabel>
-									<StatNumber>{generation}</StatNumber>
-								</Stat>
-							</StatGroup>
-							<ButtonGroup
-								mt="2"
-								colorScheme="purple"
-								variant="solid"
-								w="full"
-							>
-								<Button
-									onClick={() =>
-										setIsStarted((prev) => !prev)
-									}
-									w="50%"
-								>
-									{!isStarted ? (
-										<PlayArrowRounded />
-									) : (
-										<PauseRounded />
-									)}
-								</Button>
-								<Button
-									onClick={() => {
-										setIsStarted(false);
-										setGameGrid(createGrid(gridSize));
-										setGeneration(0);
-									}}
-									w="50%"
-								>
-									<StopRounded />
-								</Button>
-							</ButtonGroup>
+							<GameStat generation={generation} />
+							<GameControls
+								isStarted={isStarted}
+								playOnClick={() => {
+									setIsStarted((prev) => !prev);
+								}}
+								stopOnClick={() => {
+									setIsStarted(false);
+									setGameGrid(createGrid(gridSize));
+									setGeneration(0);
+								}}
+							/>
 						</Box>
-						<Box
-							// borderWidth={1}
-							// padding={1}
-							// borderRadius="md"
-							// bgColor="purple.300"
-							// boxShadow="2xl"
-							w="100%"
-						>
-							<ButtonGroup>
-								<Link
-									href="https://github.com/DreamWorld420"
-									isExternal
-								>
-									<Button bgColor="#292e38">
-										<GitHub />
-									</Button>
-								</Link>
-								<Link
-									href="https://www.linkedin.com/in/kasra-bozorgmehr-43a178239"
-									isExternal
-								>
-									<Button bgColor="#0a66c2">
-										<LinkedIn />
-									</Button>
-								</Link>
-							</ButtonGroup>
-						</Box>
+						<SocialLinks />
 					</Stack>
 				</Box>
 			</Center>
