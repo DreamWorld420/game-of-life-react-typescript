@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Button } from "@chakra-ui/react";
+
 interface IProps {
 	cell: GameCell;
 	onCellClickHandler: (i: number, j: number) => void;
@@ -13,13 +15,14 @@ const GameCell: React.FC<IProps> = ({
 }) => {
 	return (
 		<button
-			key={cell.id}
 			style={{
-				height: 15,
-				width: 15,
-				outline: "1px solid black",
-				backgroundColor: cell.isAlive ? "black" : "transparent",
+				// borderRadius: "25%",
+				backgroundColor: cell.isAlive ? "black" : "gray",
+				width: 12,
+				height: 12,
+				margin: 0.5,
 			}}
+			key={cell.id}
 			onClick={
 				!isStarted
 					? () => {

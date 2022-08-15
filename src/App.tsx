@@ -11,11 +11,19 @@ import {
 	Stat,
 	StatLabel,
 	StatNumber,
+	Stack,
+	Heading,
+	HStack,
+	Text,
+	Badge,
+	Link,
 } from "@chakra-ui/react";
 import {
 	PlayArrowRounded,
 	PauseRounded,
 	StopRounded,
+	GitHub,
+	LinkedIn,
 } from "@mui/icons-material";
 
 import GameGrid from "./components/GameGrid";
@@ -50,9 +58,9 @@ const mooreNeighborhood: [number, number][] = [
 ];
 
 const App: React.FC = () => {
-	const [gridSize, setGridSize] = useState<number>(30);
+	const [gridSize, setGridSize] = useState<number>(50);
 	const [isStarted, setIsStarted] = useState<boolean>(false);
-	const [intervalDelay, setIntervalDelay] = useState<number>(100);
+	const [intervalDelay, setIntervalDelay] = useState<number>(200);
 	const [gameGrid, setGameGrid] = useState<GameGrid>(createGrid(gridSize));
 	const [generation, setGeneration] = useState<number>(0);
 
@@ -140,40 +148,127 @@ const App: React.FC = () => {
 					onCellClickHandler={onClickHandler}
 					isStarted={isStarted}
 				/>
-				<Box
-					position="fixed"
-					top="2"
-					left="3.5"
-					borderWidth={1}
-					padding={3}
-					borderRadius="md"
-					borderColor="purple.300"
-					boxShadow="2xl"
-				>
-					<StatGroup>
-						<Stat>
-							<StatLabel>Generation</StatLabel>
-							<StatNumber>{generation}</StatNumber>
-						</Stat>
-					</StatGroup>
-					<ButtonGroup mt="2" colorScheme="purple" variant="solid">
-						<Button onClick={() => setIsStarted((prev) => !prev)}>
-							{!isStarted ? (
-								<PlayArrowRounded />
-							) : (
-								<PauseRounded />
-							)}
-						</Button>
-						<Button
-							onClick={() => {
-								setIsStarted(false);
-								setGameGrid(createGrid(gridSize));
-								setGeneration(0);
-							}}
+				<Box position="fixed" top="4" left="4">
+					<Stack w="64">
+						<Box
+							borderWidth={1}
+							padding={3}
+							borderRadius="md"
+							bgColor="purple.300"
+							boxShadow="2xl"
+							w="100%"
 						>
-							<StopRounded />
-						</Button>
-					</ButtonGroup>
+							<Stack textColor="#1a202c">
+								<Heading as="h1" size="sm">
+									Conway's Game of Life
+								</Heading>
+								<Text fontSize="sm">
+									Made by{" "}
+									<Link
+										href="https://github.com/DreamWorld420"
+										isExternal
+									>
+										<strong>DreamWorld420</strong>
+									</Link>
+								</Text>
+								<HStack>
+									<Text fontSize="sm">with</Text>
+									<Badge bgColor="#3178c6">
+										<Link
+											href="https://www.typescriptlang.org/"
+											isExternal
+										>
+											Typescript
+										</Link>
+									</Badge>
+									<Text fontSize="xs">+</Text>
+									<Badge bgColor="#282c34">
+										<Link
+											href="https://reactjs.org/"
+											isExternal
+											textColor="#61dafb"
+										>
+											React
+										</Link>
+									</Badge>
+								</HStack>
+							</Stack>
+						</Box>
+						<Box
+							borderWidth={1}
+							padding={3}
+							borderRadius="md"
+							borderColor="purple.300"
+							boxShadow="2xl"
+							h="100%"
+							display="flex"
+							flexDirection="column"
+							justifyContent="space-between"
+						>
+							<StatGroup>
+								<Stat>
+									<StatLabel>Generation</StatLabel>
+									<StatNumber>{generation}</StatNumber>
+								</Stat>
+							</StatGroup>
+							<ButtonGroup
+								mt="2"
+								colorScheme="purple"
+								variant="solid"
+								w="full"
+							>
+								<Button
+									onClick={() =>
+										setIsStarted((prev) => !prev)
+									}
+									w="50%"
+								>
+									{!isStarted ? (
+										<PlayArrowRounded />
+									) : (
+										<PauseRounded />
+									)}
+								</Button>
+								<Button
+									onClick={() => {
+										setIsStarted(false);
+										setGameGrid(createGrid(gridSize));
+										setGeneration(0);
+									}}
+									w="50%"
+								>
+									<StopRounded />
+								</Button>
+							</ButtonGroup>
+						</Box>
+						<Box
+							// borderWidth={1}
+							// padding={1}
+							// borderRadius="md"
+							// bgColor="purple.300"
+							// boxShadow="2xl"
+							w="100%"
+						>
+							<ButtonGroup>
+								<Link
+									href="https://github.com/DreamWorld420"
+									isExternal
+								>
+									<Button bgColor="#292e38">
+										<GitHub />
+									</Button>
+								</Link>
+								<Link
+									href="https://www.linkedin.com/in/kasra-bozorgmehr-43a178239"
+									isExternal
+								>
+									<Button bgColor="#0a66c2">
+										<LinkedIn />
+									</Button>
+								</Link>
+							</ButtonGroup>
+						</Box>
+					</Stack>
 				</Box>
 			</Center>
 		</Box>

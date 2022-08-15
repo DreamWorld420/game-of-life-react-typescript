@@ -19,7 +19,10 @@ const GameGrid: React.FC<IProps> = ({
 			style={{
 				display: "grid",
 				gridTemplateColumns: `repeat(${size}, 1fr)`,
-				maxWidth: size * 15,
+				// maxWidth: size * 15,
+				// maxHeight: "100vh",
+				// maxWidth: "100vw",
+				// overflow: "scroll",
 			}}
 		>
 			{grid.map((row, i) => {
