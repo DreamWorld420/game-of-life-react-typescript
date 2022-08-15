@@ -6,4 +6,4 @@ This project implements the famous [zero-player](https://en.wikipedia.org/wiki/Z
 
 ## Video
 
-![video](https://youtu.be/bMEG9AGGoGE)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bMEG9AGGoGE" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
