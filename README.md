@@ -4,6 +4,7 @@
 
 This project implements the famous [zero-player](https://en.wikipedia.org/wiki/Zero-player_game) game, [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) with technologies such as react, typescript, ChakraUI, Immer and etc.
 
+## Live Demo
 [Live Demo](https://clinquant-conkies-e64b17.netlify.app)
 
 ## Video
