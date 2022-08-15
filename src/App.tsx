@@ -18,7 +18,7 @@ import {
 	StopRounded,
 } from "@mui/icons-material";
 
-import GameGrid from "./GameGrid";
+import GameGrid from "./components/GameGrid";
 
 const createGrid: (gridSize: number) => GameGrid = (gridSize: number) => {
 	return Array(gridSize)
