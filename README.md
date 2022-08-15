@@ -8,5 +8,6 @@ This project implements the famous [zero-player](https://en.wikipedia.org/wiki/Z
 [Live Demo](https://clinquant-conkies-e64b17.netlify.app)
 
 ## Video
-https://user-images.githubusercontent.com/22224893/184684543-6be2bf7f-e39d-4e5a-8a59-583b5a3cfc93.mp4
+https://user-images.githubusercontent.com/22224893/184713897-9280246d-6be2-45eb-b7b4-501640c31300.mp4
+
 
