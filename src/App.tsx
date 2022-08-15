@@ -9,6 +9,7 @@ import SocialLinks from "./components/SocialLinks";
 import GameStat from "./components/GameStat";
 import GameControls from "./components/GameControls";
 import ProjectInfo from "./components/ProjectInfo";
+import GameInstructions from "./components/GameInstructions";
 
 import createGrid from "./utils/createGrid";
 
@@ -116,7 +117,7 @@ const App: React.FC = () => {
 					isStarted={isStarted}
 				/>
 				<Box position="fixed" top="4" left="4">
-					<Stack w="64">
+					<Stack w="72">
 						<ProjectInfo />
 						<Box
 							borderWidth={1}
@@ -142,6 +143,7 @@ const App: React.FC = () => {
 								}}
 							/>
 						</Box>
+						<GameInstructions />
 						<SocialLinks />
 					</Stack>
 				</Box>
